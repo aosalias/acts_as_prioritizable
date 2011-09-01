@@ -20,7 +20,6 @@ module ActsAsPrioritizable
     end
 
     def prioritizable_parent
-      logger.info self.class.send(:class_variable_get, :@@prioritizable_parent) + "\n"
       if self.class.send(:class_variable_get, :@@prioritizable_parent) == 'class'
         return self.class
       else
@@ -47,7 +46,7 @@ module ActsAsPrioritizable
 
     def after_destroy
       if(priority < lowest_priority && !prioritizable_parent.nil? rescue false)
-        prioritizables.select{|p| p.priority > priority}.each{|p| p.update_attribute(:priority, p.priority-1)}
+        prioritizables.select{|p| p.priority > priority rescue false }.each{|p| p.update_attribute(:priority, p.priority-1)}
       end
     end
 
