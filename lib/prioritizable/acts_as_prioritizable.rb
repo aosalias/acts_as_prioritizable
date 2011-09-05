@@ -25,7 +25,7 @@ module ActsAsPrioritizable
       if self.class.send(:class_variable_get, :@@prioritizable_parent) == 'class'
         return self.class
       else
-        self.send self.class.send(:class_variable_get, :@@prioritizable_parent), true
+        self.send(self.class.send(:class_variable_get, :@@prioritizable_parent), true) rescue nil
       end
     end
 
