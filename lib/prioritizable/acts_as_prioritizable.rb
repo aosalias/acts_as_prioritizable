@@ -30,7 +30,7 @@ module ActsAsPrioritizable
     end
 
     def prioritizables
-      prioritizable_parent.send self.class.send(:class_variable_get, :@@prioritizables)
+      prioritizable_parent.send(self.class.send(:class_variable_get, :@@prioritizables)) rescue []
     end
 
     def set_priority
