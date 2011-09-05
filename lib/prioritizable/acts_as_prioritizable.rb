@@ -8,9 +8,11 @@ module ActsAsPrioritizable
       class_variable_set :@@prioritizable_parent, prioritizable_parent
       class_variable_set :@@prioritizables, prioritizables
       attr_accessible :priority
+      default_scope :order => 'priority ASC'
       before_save :before_save
       after_destroy :after_destroy
       include ActsAsPrioritizable::InstanceMethods
+      after_initialize :default_priority
     end
   end
 
@@ -59,6 +61,10 @@ module ActsAsPrioritizable
 
     def lowest_priority
       prioritizables.map(&:priority).compact.max || 0
+    end
+
+    def default_priority
+      self.priority ||= lowest_priority
     end
   end
 end
