@@ -1,0 +1,6 @@
+Make's prioritizing rails models easy.  Just add the gem and add:
+
+  include ActsAsPrioritizable
+  acts_as_prioritizable("class", "all")
+
+Where "class" is the name of the parent object and "all" is the scope to be called on the parent object.
